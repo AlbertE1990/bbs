@@ -1,0 +1,68 @@
+{% extends "cms/cms_base.html" %}
+{% block head %}
+    <script src="{{ static('cms/js/boards.js/') }}"></script>
+    <style>
+    .top-box button{
+        float:right;
+    }
+    </style>
+{% endblock %}
+{% block title -%}
+    {{ super() }}
+{%- endblock %}
+{% block page_title -%}
+CMS板块管理
+{%- endblock %}
+{% block page_content %}
+    <div class="top-box">
+        <button class="btn btn-warning" id="add-board-btn" data-toggle="modal" data-target="#board-dialog">添加板块</button>
+    </div>
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+               <th>板块名称</th>
+                <th>帖子数量</th>
+                <th>创建时间</th>
+                <th>操作</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for board in boards %}
+                <tr data-id="{{ board.id }}" data-name="{{ board.name }}"  >
+                    <td>{{ board.name }}</td>
+                    <td></td>
+                    <td>{{ board.create_time }}</td>
+                    <td>
+                        <button class="btn btn-default btn-xs edit-board-btn">编辑</button>
+                        <button class="btn btn-danger btn-xs delete-board-btn">删除</button>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <!-- Modal -->
+    <div class="modal fade" id="board-dialog" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel">添加板块</h4>
+                </div>
+                <div class="modal-body">
+                    <form action="" class="form-horizontal">
+                        <div class="form-group">
+                            <label  class="col-sm-3 control-label">板块名称：</label>
+                            <div class="col-sm-6">
+                                <input type="text" class="form-control" name="name" placeholder="请输入板块名称">
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                    <button type="button" class="btn btn-primary" id="save-board-btn">保存</button>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

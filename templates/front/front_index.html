@@ -1,0 +1,102 @@
+{% extends 'front/front_base.html' %}
+{% block title %}首页{% endblock %}
+{% block head %}
+    <link rel="stylesheet" href="{{ static('front/css/front_index.css') }}">
+    <script src="{{ static('front/js/index.js') }}"></script>
+{% endblock %}
+{% block body %}
+
+    <div class="lg-container">
+        <!-- 轮播图-->
+        <div id="carousel" class="carousel slide index-banner" data-ride="carousel">
+        <!-- Indicators -->
+        <ol class="carousel-indicators">
+            {% for banner in banners %}
+                {% if loop.first %}
+                    <li data-target="#carousel" data-slide-to="{{ loop.index }}" class="active"></li>
+                {% else %}
+                    <li data-target="#carousel" data-slide-to="{{ loop.index }}"></li>
+                {% endif %}
+            {% endfor %}
+        </ol>
+        <!-- Wrapper for slides -->
+        <div class="carousel-inner" role="listbox">
+            {% for banner in banners %}
+                {% if loop.first %}
+                    <div class="item active">
+                        <a href="{{ banner.link_url }}" target="_blank">
+                            <img class='img-rounded' src="{{ banner.image_url }}" alt="...">
+                        </a>
+                        <div class="carousel-caption">
+                        </div>
+                    </div>
+                {% else %}
+                    <div class="item">
+                        <a href="{{ banner.link_url }}" target="_blank">
+                            <img class='img-rounded' src="{{ banner.image_url }}" alt="...">
+                        </a>
+                        <div class="carousel-caption">
+                        </div>
+                    </div>
+                {% endif %}
+            {% endfor %}
+        </div>
+        <!-- Controls -->
+        <a class="left carousel-control" href="#carousel" role="button" data-slide="prev">
+            <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+            <span class="sr-only">Previous</span>
+        </a>
+        <a class="right carousel-control" href="#carousel" role="button" data-slide="next">
+            <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+            <span class="sr-only">Next</span>
+        </a>
+        </div>
+        <!-- 帖子列表-->
+        <div class="post-group">
+        <ul class="post-group-head">
+            <li class="active"><a href="#">最新</a></li>
+            <li><a href="#">精华帖子</a></li>
+            <li><a href="#">点赞最多</a></li>
+            <li><a href="#">评论最多</a></li>
+        </ul>
+        <ul class="post-list-group">
+            {% for post in posts %}
+            <li class="post-list">
+                <div class="author-avatar-group">
+                    <img class="img-circle" src="{{ post.author.avatar or static('common/images/avatar.jpg') }}" alt="">
+                </div>
+                <div class="post-info-group">
+                        <a href='{{ url_for('front.post_detail',post_id=post.id) }}' class="post-title">{{ post.title }}</a>
+                    <div class="post-info">
+                        <span>作者：{{ post.author.username }}</span>
+                        <span>所属板块：{{ post.board.name }}</span>
+                        <span>发布时间：{{ post.create_time }}</span>
+                        <span>评论：0</span>
+                        <span>阅读：0</span>
+                    </div>
+                </div>
+            </li>
+            {% endfor %}
+        </ul>
+    <div class=" text-center">
+        {{ pagination.links }}
+    </div>
+
+    </div>
+    </div>
+
+    <div class="sm-container">
+        <!-- 板块-->
+        <div>
+            <a class="btn btn-warning btn-block" href="{{ url_for('front.apost') }}">发布帖子</a>
+        </div>
+        <div class="list-group">
+            <a href="/" class="list-group-item active">所有版块</a>
+            {% for board in boards %}
+                <a href="{{ url_for('front.index',bd=board.id) }}" class="list-group-item ">{{ board.name }}</a>
+            {% endfor %}
+        </div>
+    </div>
+
+
+{% endblock %}

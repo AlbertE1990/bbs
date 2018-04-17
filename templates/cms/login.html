@@ -1,0 +1,69 @@
+{% from "common/_macors.html" import static,bootstrap_plugin %}
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="csrf_token" content="{{ csrf_token() }}" >
+    <title>登录论坛</title>
+
+    <!-- Bootstrap core CSS -->
+    {{ bootstrap_plugin() }}
+    <!-- Custom styles for this template -->
+    <link href="{{static("cms/css/signin.css") }}" rel="stylesheet">
+
+    <script>
+        $(function () {
+            $("button[type='submit']").click(function (event) {
+                event.preventDefault();
+                $("#message").empty();
+                var email = $("#inputEmail").val();
+                var password = $("#inputPassword").val();
+                var remember = $("input[name='remember']").prop("checked");
+                var csrf_token = $("meta[name=csrf_token]").prop("content");
+
+                var data ={
+                    email:email,
+                    password:password,
+                    remember:remember,
+                    csrf_token:csrf_token
+                };
+                $.post('/cms/login/',data,function (data,textStatus) {
+                    if(data.code == 200 && textStatus == "success"){
+                        location.href = "/cms/"
+                    }
+                    else{
+                        var message = data.message;
+                        $("#message").append(message);
+                        $("#inputEmail").val('');
+                        $("#inputPassword").val('');
+                        $("input[name='remember']").prop("checked",false);
+                    }
+                });
+            })
+        })
+    </script>
+</head>
+
+<body class="text-center">
+<form class="form-signin" method="post">
+    <img class="mb-4" src="{{ static('common/images/logo.png') }}" alt="" width="72" height="72">
+    <h1 class="h3 mb-3 font-weight-normal">请登录</h1>
+    <div class="text-danger" id="message" style="height:28px"></div>
+    <label for="inputEmail" class="sr-only">邮箱</label>
+    <input type="email" name="email" id="inputEmail" class="form-control" placeholder="邮箱" required autofocus>
+    <label for="inputPassword" class="sr-only">密码</label>
+    <input type="password" name="password" id="inputPassword" class="form-control" placeholder="密码" required>
+    <div class="checkbox mb-3">
+        <label>
+            <input type="checkbox" name="remember" value="remember-me"> 记住我
+        </label>
+    </div>
+
+    <button class="btn btn-lg btn-primary btn-block" type="submit">立即登录</button>
+
+    <p class="mt-5 mb-3 text-muted">&copy; 2017-2018</p>
+</form>
+</body>
+</html>

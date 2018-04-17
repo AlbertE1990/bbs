@@ -1,0 +1,46 @@
+
+.outer-box{
+    background-color: #fff;
+    width:854px;
+    margin: 100px auto 0;
+    overflow: hidden;
+}
+body{
+    background-color: #f3f3f3;
+}
+.logo-box{
+    text-align: center;
+    padding-top:20px;
+
+}
+.logo-box img{
+    height:60px;
+    width:60px;
+}
+.form-box{
+    width:300px;
+    margin: 0 auto;
+
+}
+#captcha-box{
+    padding:0;
+    overflow: hidden;
+    cursor:pointer;
+
+}
+ #graph-captcha{
+     height: 32px;
+ }
+.i-success{
+    color: green;
+}
+.i-fail{
+    color:red;
+}
+.form-control-feedback{
+    left:0;
+}
+.has-feedback .form-control {
+    padding-left: 30px;
+    padding-right:12px;
+}

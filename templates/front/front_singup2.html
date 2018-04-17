@@ -1,0 +1,155 @@
+{% from 'common/_macors.html' import static%}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>注册</title>
+    <script src="http://cdn.bootcss.com/jquery/3.1.1/jquery.min.js"></script>
+    <script src="http://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <link href="http://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+    <script src="{{ static('common/js/sweetalert.min.js') }}"></script>
+    <script src="{{ static('common/js/xtalert.js') }}"></script>
+    <script src="{{ static('common/js/zlajax.js') }}"></script>
+    <link rel="stylesheet" href="{{ static('common/css/sweetalert.css') }}">
+    <style>
+        .outer-box{
+            background-color: #fff;
+            width:854px;
+            margin: 100px auto 0;
+            overflow: hidden;
+        }
+        body{
+            background-color: #f3f3f3;
+        }
+        .logo-box{
+            text-align: center;
+            padding-top:20px;
+
+        }
+        .logo-box img{
+            height:60px;
+            width:60px;
+        }
+        .form-box{
+            width:300px;
+            margin: 0 auto;
+
+        }
+        #captcha-box{
+            padding:0;
+            overflow: hidden;
+            cursor:pointer;
+
+        }
+         #graph-captcha{
+             height: 32px;
+         }
+        .i-success{
+
+            color: green;
+        }
+        .form-control-feedback{
+            left:0;
+        }
+        .has-feedback .form-control {
+            padding-left: 30px;
+            padding-right:12px;
+        }
+    </style>
+    <script>
+        $(function(){
+            $('#graph-captcha').click(function () {
+                var newsrc = '../captcha/?x='+Math.random()
+                $(this).attr('src',newsrc)
+            });
+            $('#capInput').keyup(function () {
+                $('#scan').val();
+                var cap_val = $(this).val();
+                if(cap_val.length==4){
+                    zlajax.get({
+                    'url':'/captcha/check/',
+                    'data':{
+                        'cap_val':cap_val
+                    },
+                    'success':function (data) {
+                        if(data.code==200){
+                            $('#scan').text('ok');
+                        }else{
+                            $('#scan').text('no');
+                        }
+
+
+                    },
+                })
+                };
+
+
+
+            })
+        })
+    </script>
+</head>
+<body>
+    <div class="outer-box">
+        <div class="logo-box">
+            <a href="/">
+                <img src={{ static('common/images/logo.png') }}>
+            </a>
+        </div>
+        <h2 class="page-title text-primary text-center">知了账号登录</h2>
+        <div class="form-box">
+            <div class="form-box">
+                <form action="">
+                    <div class="form-group">
+
+                         <div class="input-group ">
+
+                              <input type="text" class="form-control" id="telInput" placeholder="手机号码">
+                              <div class="input-group-addon btn">获取验证码</div>
+                         </div>
+                    </div>
+                    <div class="form-group has-feedback">
+                        <span class="glyphicon glyphicon-user form-control-feedback "></span>
+                        <input type="text" class="form-control" placeholder="用户名">
+                    </div>
+                    <div class="form-group has-feedback">
+                        <span class="glyphicon glyphicon-user form-control-feedback "></span>
+                        <input type="password" class="form-control" placeholder="密码">
+                    </div>
+                    <div class="form-group has-feedback">
+                        <span class="glyphicon glyphicon-user form-control-feedback "></span>
+                        <input type="password" class="form-control" placeholder="确认密码">
+
+                    </div>
+                    <div class="form-group has-feedback">
+                        <span class="glyphicon glyphicon-user form-control-feedback "></span>
+                        <input type="text" class="form-control" placeholder="手机验证码">
+                    </div>
+                    <div class="form-group has-feedback">
+                        <div class="input-group has-feedback">
+
+                            <input type="text" class="form-control" id="capInput" placeholder="验证码">
+
+                            <div class="input-group-addon" id="captcha-box">
+                                <img src="/captcha" id="captcha" alt="">
+                            </div>
+                            <span class="glyphicon glyphicon-user form-control-feedback i-success "></span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <input type="submit" class="btn btn-block btn-primary" value="立即注册">
+                    </div>
+                    <div class="form-group">
+                        <div class="input-group">
+                            <div class="input-group-addon">
+                                <i class="glyphicon glyphicon-align-left i-success " aria-hidden="true"></i>
+                            </div>
+                            <input type="text" class="form-control" id="exampleInputAmount" placeholder="Amount">
+                        </div>
+                    </div>
+                </form>
+            </div>
+    </div>
+    </div>
+</body>
+</html>

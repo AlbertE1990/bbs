@@ -1,0 +1,63 @@
+{% from 'common/_macors.html' import static,bootstrap_plugin,sweetalert_plugin%}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+    <title>注册</title>
+    {{ bootstrap_plugin() }}
+    {{ sweetalert_plugin() }}
+    <script src="{{ static('common/js/zlajax.js') }}"></script>
+    <script src="{{ static('front/js/sign-login.js') }}"></script>
+    <link rel="stylesheet" href="{{ static('front/css/sign_login.css') }}">
+</head>
+<body>
+    <div class="outer-box">
+        <div class="logo-box">
+            <a href="/">
+                <img src={{ static('common/images/logo.png') }}>
+            </a>
+        </div>
+        <h2 class="page-title text-primary text-center">知了账号注册</h2>
+        <div class="form-box">
+            <form action="" >
+                <div class="form-group">
+                     <div class="input-group  ">
+                          <input type="text" class="form-control" id="telephone" placeholder="手机号码">
+                          <div class="input-group-addon btn">获取验证码</div>
+                     </div>
+                </div>
+                <div class="form-group">
+                    <input type="text" class="form-control" id="username" placeholder="用户名">
+                </div>
+                <div class="form-group">
+                    <input type="password" class="form-control" id="password1" placeholder="密码">
+                </div>
+                <div class="form-group ">
+                    <input type="password" class="form-control" id="password2" placeholder="确认密码">
+                </div>
+                <div class="form-group">
+                    <input type="text" class="form-control" id="sms-captcha" placeholder="手机验证码">
+                </div>
+                <div class="form-group">
+                    <div class="input-group">
+                        <div class="input-group-addon">
+                            <i class="glyphicon glyphicon-question-sign " id="cap-icon"  aria-hidden="true"></i>
+                        </div>
+                        <input type="text" class="form-control" id="graph-captcha" name="graph-captcha" maxlength="4" placeholder="验证码">
+                        <div class="input-group-addon" id="captcha-box">
+                            <img src="/captcha/" id="captcha" alt="">
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <input type="submit" class="btn btn-block btn-primary" id="signup-submit-btn" value="立即注册">
+                </div>
+            </form>
+        </div>
+    </div>
+    {% if return_to %}
+    <span style="display: none" id="return-to">{{ return_to }}</span>
+    {% endif %}
+</body>
+</html>

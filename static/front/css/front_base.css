@@ -1,0 +1,36 @@
+.main-container{
+    width:990px;
+    margin:0 auto;
+    overflow:hidden;
+
+}
+.lg-container{
+    width: 730px;
+    float: left;
+
+}
+
+.sm-container{
+    width: 250px;
+    float: right;
+    background: #fff;
+}
+.navbar-brand{
+    background: url(../../common/images/mi-logo.png) no-repeat 50% 50%;
+    width:55px;
+}
+.logo{
+    background-color:#ff6700;
+}
+a:link,a:visited{
+ text-decoration:none;  /*超链接无下划线*/
+}
+ul{
+    list-style: None;
+    margin:0;
+    padding:0;
+}
+body{
+    background: #f3f3f3;;
+}
+

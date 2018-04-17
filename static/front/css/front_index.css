@@ -1,0 +1,120 @@
+.index-banner{
+    border-radius: 10px;
+    overflow: hidden;
+    min-height: 200px;
+}
+.sm-container a.btn{
+    margin-bottom:10px;
+}
+.post-group{
+    width: 730px;
+    float:left;
+    border:1px solid #ddd;
+    margin-top:20px;
+    border-radius: 5px;
+    padding:10px;
+
+}
+.post-group-head{
+    overflow: hidden;
+    padding: 10px;
+}
+.post-group-head li{
+    float: left;
+    margin:0 10px;
+    padding:10px 15px;
+    width:100px;
+    text-align: center;
+}
+.post-group-head li a{
+    color: #333;
+}
+
+.active{
+    background:#f0f0f0
+}
+
+/*=S 帖子内容 */
+.post-list{
+    overflow: hidden;
+    margin:20px 0;
+
+}
+.author-avatar-group{
+    float:left;
+}
+.post-list-group{
+    overflow: hidden;
+
+}
+.post-info-group{
+
+    float:left;
+    width:620px;
+    border-bottom: 1px solid #D6D9CE;
+    padding:10px;
+}
+
+.author-avatar-group img{
+    width:50px;
+}
+.post-title{
+    color: #333;
+    font-size: 16px;
+    margin-bottom:7px;
+    display: block;
+}
+.post-info{
+    line-height: 18px;
+    font-size: 12px;
+    color:#8c8c8c;
+
+}
+.post-info span{
+    margin-right:20px;
+}
+.post-container{
+    padding:20px;
+    border:1px solid #e7e7e7 ;
+    width:100%;
+    background: #fff;
+    margin-bottom: 10px;
+}
+.title{
+    margin-top:30px;
+    color:#ff8b3d
+}
+.post-head-group{
+    border-bottom: 1px solid #e7e7e7 ;
+    padding-bottom:10px ;
+    margin-bottom:20px;
+}
+.author-info-group{
+    width:100%;
+    padding:10px;
+    border: 1px solid #e7e7e7 ;
+    text-align: center;
+}
+.author-avatar img{
+    margin-bottom:15px;
+}
+.author-avatar{
+
+}
+.author-msg{
+    color:#333;
+    margin-bottom: 10px;
+}
+.post-content{
+    border-bottom:1px solid #e7e7e7 ;
+    margin-bottom:20px;
+}
+.post-content img{
+    max-width: 100%;
+}
+.post-comment{
+    border:1px solid #e7e7e7 ;
+    width:100%;
+    height:100px;
+    background: #fff;
+}

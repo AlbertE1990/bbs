@@ -1,0 +1,37 @@
+{% from "common/_macors.html" import static %}
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="csrf_token" content="{{ csrf_token() }}" >
+{#    <link rel="icon" href="../../../../favicon.ico">#}
+
+    <title>登录论坛</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="{{static('cms/css/bootstrap.min.css') }}" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="{{static("cms/css/signin.css") }}" rel="stylesheet">
+      <script src="http://cdn.bootcss.com/jquery/3.1.1/jquery.min.js"></script>
+
+      <script>
+          $(function () {
+              $("button").click(function () {
+                  prompt('hello world!')
+                  //var x = document.open();
+                  //$("#message").empty().append(x);
+              })
+          });
+
+      </script>
+  </head>
+
+  <body class="text-center">
+      <button class="btn  btn-primary   " >立即登录</button>
+      <div id="message"></div>
+
+  </body>
+</html>
