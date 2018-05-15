@@ -6,9 +6,10 @@ from .models import FrontUser
 from exts import db
 from .decorators import login_required
 from config import FRONT_USER_ID,PER_PAGE
-from ..models import BannerModel,BoardModel,PostModel,CommentModel
+from ..models import BannerModel,BoardModel,PostModel,CommentModel,HighlightPostModel
 from io import BytesIO
 from flask_paginate import Pagination,get_page_parameter
+from sqlalchemy.sql import func
 
 bp = Blueprint('front',__name__)
 
@@ -16,16 +17,33 @@ bp = Blueprint('front',__name__)
 @bp.route('/')
 def index():
     board_id = request.args.get('bd',type=int,default=None)
+    sort  = request.args.get('st',type=int,default=1)
     page = request.args.get(get_page_parameter(),type=int,default=1)
     start = (page-1)*PER_PAGE
     end = start + PER_PAGE
     banners = BannerModel.query.order_by(BannerModel.priority.desc()).limit(4)
     boards = BoardModel.query.all()
 
-    if board_id:
-        query_obj = PostModel.query.filter_by(board_id=board_id)
+    query_obj=None
+    if sort == 1:
+        #按照帖子发布时间倒序
+        #query_obj = PostModel.query.order_by('-create_time')
+        query_obj = PostModel.query.order_by(PostModel.create_time.desc())
+    elif sort == 2:
+        # 按照帖子加精时间倒序
+        query_obj = query_obj = db.session.query(PostModel).outerjoin(HighlightPostModel).order_by(
+            HighlightPostModel.create_time.desc())
+    elif sort == 3:
+        # 按照帖子点赞数量正序
+        query_obj = PostModel.query.order_by(PostModel.create_time.desc())
     else:
-        query_obj = PostModel.query
+        # 按照评论数量正序
+        query_obj = db.session.query(PostModel).outerjoin(CommentModel).group_by(
+            PostModel.id).order_by(func.count(CommentModel.id).desc(),PostModel.create_time.desc())
+    if board_id:
+        query_obj = query_obj.query.filter_by(board_id=board_id)
+    else:
+        pass
     posts = query_obj.slice(start, end)
     total = query_obj.count()
     pagination = Pagination(page=page,total=total,bs_version=3)

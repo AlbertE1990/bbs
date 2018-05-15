@@ -54,10 +54,10 @@
         <!-- 帖子列表-->
         <div class="post-group">
         <ul class="post-group-head">
-            <li class="active"><a href="#">最新</a></li>
-            <li><a href="#">精华帖子</a></li>
-            <li><a href="#">点赞最多</a></li>
-            <li><a href="#">评论最多</a></li>
+            <li class="active"><a href="/">最新</a></li>
+            <li><a href="{{ url_for('front.index',st=2) }}">精华帖子</a></li>
+            <li><a href="{{ url_for('front.index',st=3) }}">点赞最多</a></li>
+            <li><a href="{{ url_for('front.index',st=4) }}">评论最多</a></li>
         </ul>
         <ul class="post-list-group">
             {% for post in posts %}
