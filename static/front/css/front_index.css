@@ -31,7 +31,7 @@
 }
 
 .active{
-    background:#f0f0f0
+    background:#9a9a9a
 }
 
 /*=S 帖子内容 */
@@ -62,7 +62,7 @@
     color: #333;
     font-size: 16px;
     margin-bottom:7px;
-    display: block;
+
 }
 .post-info{
     line-height: 18px;

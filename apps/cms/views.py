@@ -143,13 +143,16 @@ def hpost():
     post = PostModel.query.get(post_id)
     if not post:
         return restful.params_error('未找到此帖子')
+    is_h = HighlightPostModel.query.filter_by(post_id=post_id).all()
+    if is_h:
+        return restful.success('此贴已经加精！')
     highlight = HighlightPostModel(post_id=post_id)
     db.session.add(highlight)
     db.session.commit()
     return restful.success('加精成功！')
 
 #帖子取消加精
-@bp.route('/uhpost/',methods=['post'])
+@bp.route('/uhpost/',methods=['POST'])
 @login_required
 def uhpost():
     post_id = request.form.get('post_id')
@@ -159,7 +162,8 @@ def uhpost():
     if not post:
         return restful.params_error('未找到此帖子')
     highlight = post.highlight
-    db.session.delete(highlight)
+    for h in highlight:
+        db.session.delete(h)
     db.session.commit()
     return restful.success('取消加精成功！')
 

@@ -54,19 +54,45 @@
         <!-- 帖子列表-->
         <div class="post-group">
         <ul class="post-group-head">
-            <li class="active"><a href="/">最新</a></li>
-            <li><a href="{{ url_for('front.index',st=2) }}">精华帖子</a></li>
-            <li><a href="{{ url_for('front.index',st=3) }}">点赞最多</a></li>
-            <li><a href="{{ url_for('front.index',st=4) }}">评论最多</a></li>
+
+            {% if current_sort==1 %}
+                <li class="active"><a href="{{ url_for('front.index',st=1,bd=current_board) }}">最新</a></li>
+            {% else %}
+                <li class=""><a href="{{ url_for('front.index',st=1,bd=current_board) }}">最新</a></li>
+            {% endif %}
+
+            {% if current_sort==2 %}
+                <li class="active"><a href="{{ url_for('front.index',st=2,bd=current_board) }}">精华帖子</a></li>
+            {% else %}
+                <li><a href="{{ url_for('front.index',st=2,bd=current_board) }}">精华帖子</a></li>
+            {% endif %}
+
+            {% if current_sort==3 %}
+                <li class="active"><a href="{{ url_for('front.index',st=3,bd=current_board) }}">点赞最多</a></li>
+            {% else %}
+                <li><a href="{{ url_for('front.index',st=3,bd=current_board) }}">点赞最多</a></li>
+            {% endif %}
+
+            {% if current_sort==4 %}
+                <li class="active"><a href="{{ url_for('front.index',st=4,bd=current_board) }}">评论最多</a></li>
+            {% else %}
+                <li><a href="{{ url_for('front.index',st=4,bd=current_board) }}">评论最多</a></li>
+            {% endif %}
         </ul>
         <ul class="post-list-group">
             {% for post in posts %}
             <li class="post-list">
+                <!-- 帖子作者头像 -->
                 <div class="author-avatar-group">
                     <img class="img-circle" src="{{ post.author.avatar or static('common/images/avatar.jpg') }}" alt="">
                 </div>
+
                 <div class="post-info-group">
-                        <a href='{{ url_for('front.post_detail',post_id=post.id) }}' class="post-title">{{ post.title }}</a>
+                    <!-- 帖子标题 -->
+                    <a href='{{ url_for('front.post_detail',post_id=post.id) }}' class="post-title">{{ post.title }}</a>
+                    {% if post.highlight %}
+                    <span class="label label-danger">精华帖</span>
+                    {% endif %}
                     <div class="post-info">
                         <span>作者：{{ post.author.username }}</span>
                         <span>所属板块：{{ post.board.name }}</span>

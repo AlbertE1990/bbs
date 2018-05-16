@@ -41,7 +41,8 @@ def index():
         query_obj = db.session.query(PostModel).outerjoin(CommentModel).group_by(
             PostModel.id).order_by(func.count(CommentModel.id).desc(),PostModel.create_time.desc())
     if board_id:
-        query_obj = query_obj.query.filter_by(board_id=board_id)
+        # query_obj = query_obj.filter_by(board_id=board_id)
+        query_obj = query_obj.filter(PostModel.board_id==board_id)
     else:
         pass
     posts = query_obj.slice(start, end)
@@ -52,7 +53,9 @@ def index():
         'banners':banners,
         'boards':boards,
         'posts':posts,
-        'pagination':pagination
+        'pagination':pagination,
+        'current_board':board_id,
+        'current_sort':sort
     }
     return render_template('front/front_index.html',**context)
 
