@@ -120,7 +120,7 @@ def email_captcha():
 @login_required
 def posts():
     page = request.args.get(get_page_parameter(), type=int, default=1)
-    PER_PAGE  = config.CMS_PER_PAGE
+    PER_PAGE  = 10
     start = (page-1)*PER_PAGE
     end = start+PER_PAGE
     query_obj = PostModel.query.order_by(PostModel.create_time.desc())
@@ -306,3 +306,13 @@ def cusers():
 def croles():
     return render_template('cms/cms_croles.html')
 
+@bp.route('/test/')
+def test():
+    developer = CMSUser.query.get(6)
+    role = developer.roles[0]
+    print('role.permissions:',role.permissions)
+    print('developer.permissions:',developer.permissions)
+
+    return 'it is a test page'
+if __name__ == '__main__':
+    pass

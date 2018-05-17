@@ -2,7 +2,7 @@ from exts import db
 from datetime import datetime
 from werkzeug.security import generate_password_hash,check_password_hash
 
-
+#CMS用户模型
 class CMSUser(db.Model):
     __tablename__ = 'cms_user'
     id = db.Column(db.Integer,primary_key=True,autoincrement=True)
@@ -18,6 +18,7 @@ class CMSUser(db.Model):
 
     def __repr__(self):
         return "<CMSUser(username:%s)>"%self.username
+
     @property
     def password(self):
         return self._password
@@ -81,3 +82,4 @@ class CMSRole(db.Model):
     users = db.relationship('CMSUser',secondary=CmsRoleUser,backref='roles')
     def __repr__(self):
         return "<CMSURole(name:%s)>" % self.name
+
